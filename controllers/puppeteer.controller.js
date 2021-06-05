@@ -13,9 +13,9 @@ const methods = {
     }
   },
 
-  async onGetContents(req, res) {
+  async onGetTop10CryptocurrencyPrices(req, res) {
     try {
-      let result = await Service.getContents()
+      let result = await Service.getTop10CryptocurrencyPrices(req.params.lang || 'th')
       res.success(result)
     } catch (error) {
       res.error(error)

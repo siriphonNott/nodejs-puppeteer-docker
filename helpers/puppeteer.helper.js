@@ -7,10 +7,10 @@ const puppeteer = require("puppeteer");
 module.exports = {
   async getContent({
     linkUrl = "",
-    mainSelector = "",
     containerSelector = "",
+    itemSelectorAll = "",
     callback = Function,
-    timeout = 30000,
+    timeout = 10000,
   } = {}) {
     try {
       const browser = await puppeteer.launch({
@@ -18,13 +18,13 @@ module.exports = {
       });
       const page = await browser.newPage();
       // Configure the navigation timeout
-      await page.setDefaultNavigationTimeout(0);
+      await page.setDefaultNavigationTimeout(timeout);
       await page.goto(linkUrl, {
         waitUntil: "networkidle0",
       });
 
-      await page.waitForSelector(mainSelector.trim(), { timeout });
-      const contentList = await page.$$eval(containerSelector.trim(), callback);
+      await page.waitForSelector(containerSelector.trim(), { timeout });
+      const contentList = await page.$$eval(itemSelectorAll.trim(), callback);
       await browser.close();
       return contentList;
     } catch (error) {

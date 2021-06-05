@@ -8,6 +8,8 @@ services:
       context: ./
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - "${PWD}/:/app/"
     networks:
       - puppeteer-network
 
