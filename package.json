@@ -19,8 +19,14 @@
     "eslint": "^7.28.0",
     "eslint-plugin-node": "^11.1.0"
   },
+  "author": "NottDev",
+  "license": "ISC",
   "engines": {
     "node": ">=10.x",
     "npm": ">=7.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siriphonNott/nodejs-puppeteer-docker.git"
   }
 }
