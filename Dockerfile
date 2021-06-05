@@ -1,4 +1,3 @@
-#FROM node:alpine
 FROM node:12.18.0
 
 RUN  apt-get update \
@@ -18,7 +17,7 @@ RUN  apt-get update \
 
 WORKDIR /app
 
-# install nodemon
+# comment it when deploy to production
 RUN npm install -g nodemon
 
 COPY ./package.json /app

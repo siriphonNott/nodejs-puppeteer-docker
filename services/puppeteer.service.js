@@ -6,15 +6,13 @@ const methods = {
     return new Promise(async (resolve, reject) => {
       try {
         const result = await puppeteerHelper.getContent({
-          linkUrl: 'https://nottdev.com/',
-          mainSelector: '.resume-section',
-          containerSelector: '.resume-item',
+          linkUrl: 'https://nodejs.org/en/',
+          mainSelector: '.container',
+          containerSelector: '#home-intro .home-downloadblock',
           callback: (list) => {
             return  list.map(ele => ({
-              position: ele.querySelector('h3').innerText,
-              company: ele.querySelector('.subheading').innerText,
-              periodDate: ele.querySelector('.resume-date span').innerText,
-              detail: Object.values(ele.querySelectorAll('ul li')).map(v => v.innerText)
+              LTSVersion: ele.querySelector('a').innerText,
+              CurrVersion: ele.querySelector('a').innerText,
              }))
           }
         })
