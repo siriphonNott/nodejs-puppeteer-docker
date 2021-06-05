@@ -12,6 +12,7 @@ services:
       - "${PWD}/:/app/"
     networks:
       - puppeteer-network
+    entrypoint: ["npm", "start"]
 
 networks:
   puppeteer-network:
