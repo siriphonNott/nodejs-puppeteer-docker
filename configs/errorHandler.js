@@ -6,7 +6,7 @@ module.exports = (isProduction = false, app) => {
     next(err)
   })
 
-  app.use((err, req, res, next) => {
+  app.use((err, req, res,) => {
     console.log('err: ', err)
     if (!isProduction) console.log(err.stack)
     let statusCode = err.status || 500

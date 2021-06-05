@@ -1,6 +1,6 @@
 const Service = require('../services/puppeteer.service'),
   appConfig = require('../configs/app')
-  // const { puppeteerService } = require('../services'),
+
 const methods = {
   async welcome(req, res) {
     try {

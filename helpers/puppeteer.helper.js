@@ -3,24 +3,25 @@
   Author: NottDev
   Created Date: 03/06/21 23:23
 */
-const puppeteer = require("puppeteer");
+const logger = require('../configs/logger')
+const puppeteer = require('puppeteer');
 module.exports = {
   async getContent({
-    linkUrl = "",
-    containerSelector = "",
-    itemSelectorAll = "",
+    linkUrl = '',
+    containerSelector = '',
+    itemSelectorAll = '',
     callback = Function,
     timeout = 10000,
   } = {}) {
     try {
       const browser = await puppeteer.launch({
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       const page = await browser.newPage();
       // Configure the navigation timeout
       await page.setDefaultNavigationTimeout(timeout);
       await page.goto(linkUrl, {
-        waitUntil: "networkidle0",
+        waitUntil: 'networkidle0',
       });
 
       await page.waitForSelector(containerSelector.trim(), { timeout });
@@ -28,7 +29,8 @@ module.exports = {
       await browser.close();
       return contentList;
     } catch (error) {
-      console.log("[puppeteer error]: ", error);
+      logger.error('[puppeteer error]: ' + JSON.stringify(error))
+      console.log('[puppeteer error]: ', error)
       return error;
     }
   },

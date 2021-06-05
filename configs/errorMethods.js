@@ -1,5 +1,8 @@
 module.exports = {
   ErrorNotFound(msg) {
+    let error = new Error(msg)
+    error.message = msg
+    error.status = 404
     return error
   },
   ErrorNotModified(msg) {
