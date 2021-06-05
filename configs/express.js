@@ -6,9 +6,7 @@ const express = require('express'),
 module.exports = async (app) => {
 
   // CORS
-  const allowedOrigins = [
-    'http://localhost:3000',
-  ]
+  const allowedOrigins = []
   const corsOptions = {
     origin: function (origin, callback) {
       if (!origin) return callback(null, true)
