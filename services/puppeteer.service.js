@@ -2,6 +2,42 @@
   { ErrorNotFound, ErrorInternalServer } = require('../configs/errorMethods')
 
 const methods = {
+
+  welcome() {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const result = await puppeteerHelper.getContent({
+            linkUrl: 'https://www.npmjs.com/package/puppeteer',
+            containerSelector: '#main',
+            itemSelectorAll: '#top > div',
+            callback: (list) => {
+              return list.slice(2).map(ele => {
+                return {
+                  name: 'Puppeteer',
+                  linkUrl: 'https://www.npmjs.com/package/puppeteer',
+                  command: (ele.querySelector('span') || {}).innerText,
+                  weeklyDownloads: (ele.querySelector('div:nth-child(3) p') || {}).innerText,
+                  version: (ele.querySelector('div:nth-child(4) > p') || {}).innerText,
+                  license: (ele.querySelector('div:nth-child(5) > p') || {}).innerText,
+                  unpackedSize: (ele.querySelector('div:nth-child(6) > p') || {}).innerText,
+                  totalFiles: (ele.querySelector('div:nth-child(7) > p') || {}).innerText,
+                  issues: (ele.querySelector('div:nth-child(8) > p') || {}).innerText,
+                  pullRequests: (ele.querySelector('div:nth-child(9) > p') || {}).innerText,
+                  homepage: (ele.querySelector('div:nth-child(10) > p') || {}).innerText,
+                  repository: (ele.querySelector('div:nth-child(11) > p') || {}).innerText,
+                  LastPublish: (ele.querySelector('div:nth-child(12) > p') || {}).innerText,
+                }
+              })
+            }
+          })
+          resolve(Array.isArray(result) && result.length > 0 ? result[0] : [])
+        } catch (error) {
+          reject(ErrorInternalServer(error.message))
+        }
+      })()
+    })
+  },
   getTop10CryptocurrencyPrices(lang) {
     return new Promise((resolve, reject) => {
       (async () => {
