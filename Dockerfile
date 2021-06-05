@@ -18,29 +18,13 @@ RUN apt-get update \
 # RUN chmod +x /usr/local/bin/dumb-init
 # ENTRYPOINT ["dumb-init", "--"]
 
-# Uncomment to skip the chromium download when installing puppeteer. If you do,
-# you'll need to launch puppeteer with:
-#     browser.launch({executablePath: 'google-chrome-stable'})
-# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
-# Install puppeteer so it's available in the container.
-RUN npm i puppeteer \
-    # Add user so we don't need --no-sandbox.
-    # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
-    && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-    && mkdir -p /home/pptruser/Downloads \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /node_modules
-
-
+# Directory for work
 WORKDIR /app
 
+# Install package.json
 COPY ./package.json /app
 RUN npm install
 COPY ./ ./
 
-# Run everything after as non-privileged user.
-USER pptruser
-
-
-CMD ["google-chrome-stable"]
+# Start Server
+CMD ["npm", "start"]
