@@ -35,9 +35,6 @@ RUN npm i puppeteer \
 
 WORKDIR /app
 
-# comment it when deploy to production
-RUN npm install -g nodemon
-
 COPY ./package.json /app
 RUN npm install
 COPY ./ ./
