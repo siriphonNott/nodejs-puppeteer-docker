@@ -1,4 +1,4 @@
-require('dotenv').config({ path: `${process.cwd()}/${process.env.NODE_ENV === 'production' ? '.env' : '.env.local'}` })
+require('dotenv').config()
 
 module.exports = {
   port: process.env.PORT || 3000,
